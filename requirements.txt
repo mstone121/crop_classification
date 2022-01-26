@@ -2,3 +2,5 @@ tensorflow==2.7.0
 GDAL==3.4.1 # for opening tiff files
 black==21.12b0 # for code auto formatting
 ipykernel==6.7.0 # for jupyter notebook
+dbfread==2.0.7 # for opening database files
+pandas==1.4.0 # for using database as a Dataframe

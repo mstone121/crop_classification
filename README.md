@@ -4,6 +4,5 @@ A machine learning approach to crop classification in Illinois
 
 ## Setup
 
-1. Install GDAL (`brew install gdal` on OS X). The version might need to match that of the requirements file.
-2. Run `pip install -r requirements.txt`.
-3. Run `python download_data.py` to download and extract data files to the `/data` directory.
+1. Run `pip install -r requirements.txt`.
+1. Run `python download_data.py` to download and extract data files to the `/data` directory.

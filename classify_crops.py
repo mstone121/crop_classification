@@ -25,6 +25,8 @@ def data_file(filename):
     return path_join("data", filename)
 
 
+crops = ["Corn", "Soybeans"]
+
 log("Loading data...")
 imagery = Imagery(data_file("20130824_RE3_3A_Analytic_Champaign_north.tif"))
 labels = Labels(
@@ -38,8 +40,8 @@ labels.remove_unused_labels()
 
 log("Removing areas with missing data...")
 boundary = imagery.get_boundary()
-imagery.resize_data_set(boundary)
-labels.resize_data_set(boundary)
+imagery.resize(boundary)
+labels.resize(boundary)
 
 log("Chunking Data...")
 chunk_width = 128
@@ -78,7 +80,7 @@ def hypermodel(hp):
             DefaultConv2D(
                 filters=hp.Int("layer2_filters", min_value=32, max_value=128, step=32)
             ),
-            Dense(units=3, activation="softmax"),
+            Dense(units=len(crops), activation="softmax"),
         ]
     )
 

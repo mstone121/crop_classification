@@ -25,3 +25,6 @@ class Labels(DataSet):
 
     def get_crop_color(self, crop):
         return self.get_crop_meta(crop)["RED", "GREEN", "BLUE", "OPACITY"]
+
+    def remove_unused_labels(self):
+        self.data = np.vectorize(lambda value: self.crop_map.get(value, 0))(self.data)

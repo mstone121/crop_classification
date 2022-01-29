@@ -32,8 +32,7 @@ class DataSet:
     def resize(self, boundary: Boundary):
         self.data = self.data[
             boundary.start_row : boundary.end_row,
-            boundary.start_column,
-            boundary.end_column,
+            boundary.start_column : boundary.end_column,
         ]
 
     def get_boundary(self) -> Boundary:
@@ -57,6 +56,12 @@ class DataSet:
         return Boundary(start_column, end_column, start_row, end_row)
 
     def chunk(self, chunk_width=128, chunk_length=128):
+        if self.number_of_bands > 1:
+            self.chunk_multi_band(chunk_width, chunk_length)
+        else:
+            self.chunk_single_band(chunk_width, chunk_length)
+
+    def chunk_multi_band(self, chunk_width, chunk_length):
         chunks = np.array(
             [
                 view_as_windows(
@@ -76,6 +81,24 @@ class DataSet:
                 chunk_width,
                 chunk_length,
                 self.number_of_bands,
+            ),
+        )
+
+        self.data = chunks
+        self.chunk_count = chunks.shape[0]
+
+    def chunk_single_band(self, chunk_width, chunk_length):
+        chunks = view_as_windows(
+            self.data,
+            [chunk_width, chunk_length],
+            [chunk_width // 2, chunk_length // 2],
+        )
+
+        chunks = chunks.reshape(
+            (
+                chunks.shape[0] * chunks.shape[1],
+                128,
+                128,
             ),
         )
 

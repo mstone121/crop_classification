@@ -25,6 +25,9 @@ class DataSet:
 
         self.number_of_bands = 1 if len(shape) == 2 else shape[2]
 
+    def get_data(self):
+        return self.data
+
     def resize(self, boundary: Boundary):
         self.data = self.data[
             boundary.start_row : boundary.end_row,

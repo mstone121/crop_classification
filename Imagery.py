@@ -4,7 +4,7 @@ from tifffile import TiffFile
 from DataSet import Boundary, DataSet
 
 
-class ImageryLoader(DataSet):
+class Imagery(DataSet):
     def __init__(self, filename):
         self.data = np.array(TiffFile(filename).asarray())
         super().__init__()

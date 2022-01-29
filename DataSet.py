@@ -25,14 +25,14 @@ class DataSet:
 
         self.number_of_bands = 1 if len(shape) == 2 else shape[2]
 
-    def resize_data_set(self, boundary: Boundary):
+    def resize(self, boundary: Boundary):
         self.data = self.data[
             boundary.start_row : boundary.end_row,
             boundary.start_column,
             boundary.end_column,
         ]
 
-    def get_data_boundary(self) -> Boundary:
+    def get_boundary(self) -> Boundary:
         # A function that takes a row or column of band values (n, 5) and returns the non-empty indices
         def get_non_empty_indices(array):
             return np.where(np.any(array > 0, axis=1))[0]
@@ -52,7 +52,7 @@ class DataSet:
         # Remove missing data
         return Boundary(start_column, end_column, start_row, end_row)
 
-    def chunk_data(self, chunk_width=128, chunk_length=128):
+    def chunk(self, chunk_width=128, chunk_length=128):
         chunks = np.array(
             [
                 view_as_windows(
@@ -76,6 +76,10 @@ class DataSet:
         )
 
         self.data = chunks
+        self.chunk_count = chunks.shape[0]
+
+    def get_chunk_count(self):
+        return self.chunk_count
 
     def shuffle(self, shuffle_indicies: permutations):
         self.data = self.data[shuffle_indicies]

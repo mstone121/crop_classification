@@ -7,3 +7,4 @@ pandas==1.4.0 # for using database as a Dataframe
 requests==2.27.1 # for download_data script
 matplotlib==3.5.1 # for pictures/plots
 scikit-image==0.19.1 # for view_as_window function
+keras-tuner==1.1.0 # For hyperparameter optimization

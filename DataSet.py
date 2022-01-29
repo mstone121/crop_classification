@@ -14,16 +14,17 @@ class Boundary:
 
 class DataSet:
     def __init__(self) -> None:
-        if not self.data:
+        if not hasattr(self, "data"):
             raise Exception(
                 "DataSet is an abstract class. self.data must be set before initialization."
             )
 
         shape = self.data.shape
-        if shape > 3 or shape < 2:
+        dimensions = len(shape)
+        if dimensions > 3 or dimensions < 2:
             raise Exception("Invalid data shape")
 
-        self.number_of_bands = 1 if len(shape) == 2 else shape[2]
+        self.number_of_bands = 1 if dimensions == 2 else shape[2]
 
     def get_data(self):
         return self.data

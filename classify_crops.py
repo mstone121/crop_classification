@@ -16,10 +16,16 @@ from Labels import Labels
 logdir = path_join("logs", datetime.now().strftime("%Y%m%d-%H%M%S"))
 
 
+def log(message):
+    # I might want to write this output to a file at some point
+    print(message)
+
+
 def data_file(filename):
     return path_join("data", filename)
 
 
+log("Loading data...")
 imagery = Imagery(data_file("20130824_RE3_3A_Analytic_Champaign_north.tif"))
 labels = Labels(
     data_file("CDL_2013_Champaign_north.tif"),
@@ -27,29 +33,32 @@ labels = Labels(
     ["Corn", "Soybeans"],
 )
 
-# Remove everything but corn and soybean
+log("Removing unused labels...")
 labels.remove_unused_labels()
 
-# Remove edges of imagery that have no data
-boundary = imagery.get_data_boundary()
+log("Removing areas with missing data...")
+boundary = imagery.get_boundary()
 imagery.resize_data_set(boundary)
 labels.resize_data_set(boundary)
 
-# Chunk Data
+log("Chunking Data...")
 chunk_width = 128
 chunk_height = 128
 
 imagery.chunk(chunk_width, chunk_height)
 labels.chunk(chunk_width, chunk_height)
 
-# Shuffle Data
+log("Shuffling Data...")
 np_random.seed(27)
 random_indicies = np_random.permutation(imagery.get_chunk_count())
 imagery.shuffle(random_indicies)
 labels.shuffle(random_indicies)
 
-# Normalize imagery
+log("Normalizing imagery...")
 imagery.normalize()
+
+log("Data preparation done. Defering output to Keras...")
+log("")
 
 # Define model instance
 def hypermodel(hp):

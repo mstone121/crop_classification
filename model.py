@@ -26,7 +26,7 @@ def hypermodel(hp):
             DefaultConv2D(
                 filters=hp.Int("layer2_filters", min_value=32, max_value=128, step=32)
             ),
-            Dense(units=len(Configuration.crops), activation="softmax"),
+            Dense(units=len(Configuration.crops) + 1, activation="softmax"),
         ]
     )
 

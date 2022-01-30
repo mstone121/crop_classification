@@ -1,17 +1,17 @@
 from numpy import random as np_random
 from tensorflow.keras.callbacks import TensorBoard, EarlyStopping
 
-from Configuration import Configuration, log, data_file
+from Configuration import Configuration, log
 from Imagery import Imagery
 from Labels import Labels
 from model import tuner
 
 
 log("Loading data...")
-imagery = Imagery(data_file("20130824_RE3_3A_Analytic_Champaign_north.tif"))
+imagery = Imagery(Configuration.training_imagery_file)
 labels = Labels(
-    data_file("CDL_2013_Champaign_north.tif"),
-    data_file("CDL_2013_clip_20170525181724_1012622514.tif.vat.dbf"),
+    Configuration.training_labels_file,
+    Configuration.training_labels_metadata_file,
     Configuration.crops,
 )
 

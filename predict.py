@@ -1,6 +1,6 @@
 from numpy import argmax, savez_compressed as np_savez_compressed
 
-from Configuration import Configuration, data_file, log
+from Configuration import Configuration, log
 from Imagery import Imagery
 from model import tuner
 
@@ -8,7 +8,7 @@ from model import tuner
 # I don't really need the Imagery/Dataset functions for this part.
 # I'll use it to load the file and normalize, then get the numpy array.
 log("Loading data...")
-original_test_data = Imagery(data_file("20130824_RE3_3A_Analytic_Champaign_south.tif"))
+original_test_data = Imagery(Configuration.test_imagery_file)
 
 log("Normalizing data...")
 original_test_data.normalize()

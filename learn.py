@@ -1,23 +1,10 @@
-from os.path import join as path_join
 from numpy import random as np_random
-
-
 from tensorflow.keras.callbacks import TensorBoard, EarlyStopping
 
-from Configuration import Configuration
+from Configuration import Configuration, log, data_file
 from Imagery import Imagery
 from Labels import Labels
-
-from model import hypermodel, tuner
-
-
-def log(message):
-    # I might want to write this output to a file at some point
-    print(message)
-
-
-def data_file(filename):
-    return path_join("data", filename)
+from model import tuner
 
 
 log("Loading data...")

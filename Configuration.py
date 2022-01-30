@@ -2,6 +2,15 @@ from os.path import join as path_join
 from datetime import datetime
 
 
+def log(message):
+    # I might want to write this output to a file at some point
+    print(message)
+
+
+def data_file(filename):
+    return path_join("data", filename)
+
+
 class Configuration:
     # Directories
     logdir = path_join("logs", datetime.now().strftime("%Y%m%d-%H%M%S"))

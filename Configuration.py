@@ -12,8 +12,9 @@ def data_file(filename):
 
 
 class Configuration:
-    # Directories
+    # Directories and files
     logdir = path_join("logs", datetime.now().strftime("%Y%m%d-%H%M%S"))
+    prediction_file = "predictions"
     model_dir = "models"
     hypermodel_name = "hypermodel_1"
 

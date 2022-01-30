@@ -6,6 +6,7 @@ from Imagery import Imagery
 from Labels import Labels
 from model import tuner
 
+# The log() method calls here sort of double as comments delineating sections of the process
 
 log("Loading data...")
 imagery = Imagery(Configuration.training_imagery_file)
@@ -24,8 +25,6 @@ imagery.resize(boundary)
 labels.resize(boundary)
 
 log("Chunking Data...")
-
-
 imagery.chunk(Configuration.chunk_width, Configuration.chunk_height)
 labels.chunk(Configuration.chunk_width, Configuration.chunk_height)
 

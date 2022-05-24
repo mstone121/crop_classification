@@ -52,7 +52,6 @@ class DataSet:
         # Last non-empty pixel in the start_column
         end_row = get_non_empty_indices(self.data[:, start_column])[-1]
 
-        # Remove missing data
         return Boundary(start_column, end_column, start_row, end_row)
 
     def chunk(self, chunk_width=128, chunk_length=128):
